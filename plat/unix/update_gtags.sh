@@ -2,6 +2,7 @@
 
 set -e
 
+LOCKFILE=gtags.lock
 PROG_NAME=$0
 GTAGS_EXE=gtags
 FILE_LIST_CMD=
@@ -42,7 +43,14 @@ else
   CMD="$GTAGS_EXE $GTAGS_ARGS"
 fi
 
+echo "Locking gtags files..."
+echo $$ > "$LOCKFILE"
+
 echo "Running gtags:"
 echo "$CMD"
 eval "$CMD"
+
+echo "Unlocking gtags file..."
+rm -f "$LOCKFILE"
+
 echo "Done."
