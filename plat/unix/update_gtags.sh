@@ -33,7 +33,7 @@ while [[ $# -ne 0 ]]; do
       shift 2
       ;;
     *)
-      GTAGS_ARGS="$GTAGS_ARGS $1"
+      GTAGS_ARGS="$GTAGS_ARGS $(printf %q "$1")"
       shift
       ;;
   esac
