@@ -2,10 +2,12 @@
 
 set -e
 
-LOCKFILE=gtags.lock
 PROG_NAME=$0
 GTAGS_EXE=gtags
 FILE_LIST_CMD=
+TAGS_FILES="GTAGS GPATH GRTAGS"
+GTAGS_PATHARG="${!#}" # last arg is always the path
+LOCKFILE="$GTAGS_PATHARG/gtags.lock"
 
 ShowUsage() {
     echo "Usage:"
@@ -45,6 +47,15 @@ fi
 
 echo "Locking gtags files..."
 echo $$ > "$LOCKFILE"
+
+# Remove lock and any partial files on script exit
+trap '\
+errorcode=$?; \
+for f in $TAGS_FILES; \
+do f="$GTAGS_PATHARG/$f"; test -s "$f" && continue || rm -f "$f"; done; \
+rm -f "$LOCKFILE"; \
+exit $errorcode; \
+' INT QUIT TERM EXIT
 
 echo "Running gtags:"
 echo "$CMD"
