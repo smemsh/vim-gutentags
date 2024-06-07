@@ -51,6 +51,7 @@ if [ "$1" != "" ]; then
 fi
 
 echo "Locking pycscope DB file..."
+set -C
 echo $$ > "$DB_FILE.lock"
 
 # Remove lock and temp file if script is stopped unexpectedly.

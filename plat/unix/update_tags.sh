@@ -89,6 +89,7 @@ if [ "$1" != "" ]; then
 fi
 
 echo "Locking tags file..."
+set -C
 echo $$ > "$TAGS_FILE.lock"
 
 # Remove lock and temp file if script is stopped unexpectedly.

@@ -46,6 +46,7 @@ else
 fi
 
 echo "Locking gtags files..."
+set -C
 echo $$ > "$LOCKFILE"
 
 # Remove lock and any partial files on script exit

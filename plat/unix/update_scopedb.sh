@@ -55,6 +55,7 @@ if [ "$1" != "" ]; then
 fi
 
 echo "Locking cscope DB file..."
+set -C
 echo $$ > "$DB_FILE.lock"
 
 # Remove lock and temp file if script is stopped unexpectedly.
