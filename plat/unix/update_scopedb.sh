@@ -54,10 +54,6 @@ if [ "$1" != "" ]; then
     exit 1
 fi
 
-echo "Locking cscope DB file..."
-set -C
-echo $$ > "$DB_FILE.lock"
-
 # Remove lock and temp file if script is stopped unexpectedly.
 CleanUp() {
     rm -f "$DB_FILE.lock" "$DB_FILE.files" "$DB_FILE.temp"
@@ -65,6 +61,10 @@ CleanUp() {
         rm -f "$DB_FILE.temp.in" "$DB_FILE.temp.po"
     fi
 }
+
+echo "Locking cscope DB file..."
+set -C
+echo $$ > "$DB_FILE.lock"
 
 trap CleanUp INT QUIT TERM EXIT
 
