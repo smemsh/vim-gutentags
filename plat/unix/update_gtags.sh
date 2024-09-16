@@ -53,10 +53,10 @@ echo $$ > "$LOCKFILE"
 trap '\
 errorcode=$?; \
 for f in $TAGS_FILES; \
-do f="$GTAGS_PATHARG/$f"; test -s "$f" && continue || rm -f "$f"; done; \
+do rm -f "$GTAGS_PATHARG/$f"; done; \
 rm -f "$LOCKFILE"; \
 exit $errorcode; \
-' INT QUIT TERM EXIT
+' INT QUIT TERM
 
 echo "Running gtags:"
 echo "$CMD"
